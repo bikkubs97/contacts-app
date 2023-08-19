@@ -1,6 +1,15 @@
+import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet"; // Import Leaflet
 import "leaflet/dist/leaflet.css";
 import { useQuery } from "react-query";
+
+// Create a custom icon using your custom icon image
+const customIcon = new L.Icon({
+  iconUrl: "icon.png",
+  iconSize: [32, 32], // Adjust the size of your icon
+  iconAnchor: [16, 32], // Adjust the anchor point if needed
+});
 
 interface Country {
   country: string;
@@ -30,13 +39,12 @@ export default function Leaflet(): JSX.Element {
       zoom={2}
       style={{ height: "50vh", zIndex: 0 }}
     >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {data?.map((country) => (
         <Marker
           key={country.country}
           position={[country.countryInfo.lat, country.countryInfo.long]}
+          icon={customIcon} // Use the custom icon
         >
           <Popup>
             <div>
