@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { addContact } from "../redux/action";
 
+// Define the props expected by the Create component
 interface CreateProps {
   setShowAddModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -11,8 +12,7 @@ export default function Create({ setShowAddModal }: CreateProps): JSX.Element {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    status: false, // Initially set to false for "Inactive"
-    id: 0,
+    status: false, 
   });
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -20,7 +20,7 @@ export default function Create({ setShowAddModal }: CreateProps): JSX.Element {
     if (type === "radio") {
       setFormData((prev) => ({
         ...prev,
-        [name]: value === "true", 
+        [name]: value === "true", // Convert the string value to a boolean
       }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
@@ -38,8 +38,8 @@ export default function Create({ setShowAddModal }: CreateProps): JSX.Element {
 
     // Dispatch the action to add a new contact
     dispatch(addContact(newContact));
-    setShowAddModal(false);
-    console.log(newContact);
+    setShowAddModal(false); //close the add modal
+    console.log(newContact); //for debugging
   }
 
   return (

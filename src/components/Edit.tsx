@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { updateContact } from "../redux/action";
 
+// Define the props 
 interface EditProps {
   setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
   editData: {
@@ -23,20 +24,19 @@ export default function Edit({
     id: editData.id,
   });
   const dispatch = useDispatch();
-
+  // Function to handle changes in the form inputs
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
-
+// Function to handle changes in the status radio buttons
   function handleStatusChange(value: boolean) {
     setFormData((prev) => ({ ...prev, status: value }));
   }
-
+  // handle form submission
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(updateContact(formData));
+    dispatch(updateContact(formData));  // Dispatch the action to update the contact 
     console.log(formData);
-
     setShowEditModal(false);
   }
 

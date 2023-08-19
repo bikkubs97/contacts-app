@@ -1,14 +1,13 @@
-
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet"; // Import Leaflet
 import "leaflet/dist/leaflet.css";
 import { useQuery } from "react-query";
 
-// Create a custom icon using your custom icon image
+// Create a custom icon using custom icon image
 const customIcon = new L.Icon({
   iconUrl: "icon.png",
-  iconSize: [32, 32], // Adjust the size of your icon
-  iconAnchor: [16, 32], // Adjust the anchor point if needed
+  iconSize: [32, 32], // Adjust the size of icon
+  iconAnchor: [16, 32], // Adjust the anchor point
 });
 
 interface Country {
@@ -23,14 +22,15 @@ interface Country {
 }
 
 export default function Leaflet(): JSX.Element {
+  // Function to fetch country data asynchronously
   async function fetchData(): Promise<Country[]> {
     const response = await fetch("https://disease.sh/v3/covid-19/countries");
     const data = await response.json();
     return data;
   }
-
+  // Use react-query to fetch data and manage loading states
   const { data, isLoading } = useQuery<Country[]>("countryData", fetchData);
-
+  // Render a loading message while data is being fetched
   if (isLoading) return <p>Loading...</p>;
 
   return (

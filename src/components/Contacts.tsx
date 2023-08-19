@@ -14,16 +14,18 @@ interface EditData {
 }
 
 export default function Contacts(): JSX.Element {
+    // Get the contacts from the store
   const contacts = useSelector((state: RootState) => state.contacts);
   const dispatch = useDispatch();
-
+   // States for controlling the visibility of add and edit modals
   const [showAddModal, setShowAddModal] = useState(false);
+    // State for storing data of the contact being edited
   const [showEditModal, setShowEditModal] = useState(false);
   const [editData, setEditData] = useState<EditData>({
     firstName: "",
     lastName: "",
     status: false,
-    id: 0, // Initialize with a valid number, or leave it undefined
+    id: 0, 
   });
 
   function handleAddContact() {
