@@ -1,4 +1,4 @@
-import { useState ,ChangeEvent, FormEvent, } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { addContact } from "../redux/action";
 
@@ -6,34 +6,45 @@ interface CreateProps {
   setShowAddModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Create({ setShowAddModal }: CreateProps) : JSX.Element {
+export default function Create({ setShowAddModal }: CreateProps): JSX.Element {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    status: false,
-    id:0
+    status: false, // Initially set to false for "Inactive"
+    id: 0,
   });
 
-  function handleChange(e : ChangeEvent<HTMLInputElement>) {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value, type, checked } = e.target;
+    if (type === "radio") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value === "true", 
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+    }
   }
 
-  function handleSubmit( e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const newContact = {
       firstName: formData.firstName,
       lastName: formData.lastName,
       status: formData.status,
       id: Math.random(),
-    }; // Dispatch the action to add a new contact
+    };
+
+    // Dispatch the action to add a new contact
     dispatch(addContact(newContact));
     setShowAddModal(false);
+    console.log(newContact);
   }
 
   return (
     <div className="fixed top-20 left-0 right-0 border border-blue-600 rounded-md flex-column bg-blue-200  p-5 text-center ]">
-      <h2 className="font-bold text-blue-800">Crate contacts</h2>
+      <h2 className="font-bold text-blue-800">Create contacts</h2>
       <form onSubmit={handleSubmit}>
         <label>First Name</label>
         <input
@@ -60,17 +71,19 @@ export default function Create({ setShowAddModal }: CreateProps) : JSX.Element {
         <p className="font-bold text-blue-800">Status</p>
         <input
           type="radio"
-          name="active"
-          value={formData.status.toString()}
+          name="status"
+          value="true"
           onChange={handleChange}
+          checked={formData.status === true}
         />
         <label className="p-1">Active</label>
         <br />
         <input
           type="radio"
-          name="active"
-          value={formData.status.toString()}
+          name="status"
+          value="false"
           onChange={handleChange}
+          checked={formData.status === false}
         />
         <label className="p-1">Inactive</label>
         <br />

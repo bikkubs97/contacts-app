@@ -28,6 +28,10 @@ export default function Edit({
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
+  function handleStatusChange(value: boolean) {
+    setFormData((prev) => ({ ...prev, status: value }));
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(updateContact(formData));
@@ -68,7 +72,7 @@ export default function Edit({
           name="status"
           value="true"
           checked={formData.status === true}
-          onChange={handleChange} // Updated this line
+          onChange={() => handleStatusChange(true)}
         />
         <label className="p-1">Active</label>
         <br />
@@ -77,7 +81,7 @@ export default function Edit({
           name="status"
           value="false"
           checked={formData.status === false}
-          onChange={handleChange} // Updated this line
+          onChange={() => handleStatusChange(false)}
         />
         <label className="p-1">Not Active</label>
 
