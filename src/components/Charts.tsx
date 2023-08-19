@@ -10,7 +10,7 @@ export default function Charts(): JSX.Element {
         </h1>
         <h1 className="font-bold p-1 text-blue-800">Line Graph</h1>
         <LineChart />
-        <h1 className="font-bold p-1 text-blue-800">Historical Data</h1>
+        <h1 className="font-bold p-1 text-blue-800">Country Data</h1>
         <Leaflet />
       </div>
     </>
