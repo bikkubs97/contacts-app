@@ -1,20 +1,20 @@
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 import { deleteContact } from "../redux/action";
 import Create from "./Create";
 import Edit from "./Edit";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 
 interface EditData {
   firstName: string;
   lastName: string;
-  status:boolean;
+  status: boolean;
   id: number;
 }
 
-
-export default function Contacts() :JSX.Element {
-  const contacts = useSelector((state:RootState) => state.contacts);
+export default function Contacts(): JSX.Element {
+  const contacts = useSelector((state: RootState) => state.contacts);
   const dispatch = useDispatch();
 
   const [showAddModal, setShowAddModal] = useState(false);
@@ -22,17 +22,19 @@ export default function Contacts() :JSX.Element {
   const [editData, setEditData] = useState<EditData>({
     firstName: "",
     lastName: "",
-    active: false,
-    id: null,
+    status: false,
+    id: 0, // Initialize with a valid number, or leave it undefined
   });
 
   function handleAddContact() {
     setShowAddModal(true);
   }
-  function handleEditContact(contact :EditData) {
+
+  function handleEditContact(contact: EditData) {
     setShowEditModal(true);
     setEditData(contact);
   }
+
   function handleDeleteContact(contact: EditData) {
     dispatch(deleteContact(contact));
   }

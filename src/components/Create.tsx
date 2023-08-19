@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,ChangeEvent, FormEvent, } from "react";
 import { useDispatch } from "react-redux";
 import { addContact } from "../redux/action";
 
@@ -11,19 +11,20 @@ export default function Create({ setShowAddModal }: CreateProps) : JSX.Element {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    status: "false",
+    status: false,
+    id:0
   });
 
-  function handleChange(e) {
+  function handleChange(e : ChangeEvent<HTMLInputElement>) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  function handleSubmit( e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const newContact = {
       firstName: formData.firstName,
       lastName: formData.lastName,
-      active: formData.status,
+      status: formData.status,
       id: Math.random(),
     }; // Dispatch the action to add a new contact
     dispatch(addContact(newContact));
@@ -60,7 +61,7 @@ export default function Create({ setShowAddModal }: CreateProps) : JSX.Element {
         <input
           type="radio"
           name="active"
-          value={formData.status}
+          value={formData.status.toString()}
           onChange={handleChange}
         />
         <label className="p-1">Active</label>
@@ -68,7 +69,7 @@ export default function Create({ setShowAddModal }: CreateProps) : JSX.Element {
         <input
           type="radio"
           name="active"
-          value={formData.status}
+          value={formData.status.toString()}
           onChange={handleChange}
         />
         <label className="p-1">Inactive</label>

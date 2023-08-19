@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { updateContact } from "../redux/action";
 
@@ -12,8 +12,10 @@ interface EditProps {
   };
 }
 
-
-export default function Edit({ setShowEditModal, editData }:EditProps):JSX.Element {
+export default function Edit({
+  setShowEditModal,
+  editData,
+}: EditProps): JSX.Element {
   const [formData, setFormData] = useState({
     firstName: editData.firstName,
     lastName: editData.lastName,
@@ -22,14 +24,14 @@ export default function Edit({ setShowEditModal, editData }:EditProps):JSX.Eleme
   });
   const dispatch = useDispatch();
 
-  function handleChange(e:React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(updateContact(formData));
-    console.log(formData)
+    console.log(formData);
 
     setShowEditModal(false);
   }
@@ -66,9 +68,7 @@ export default function Edit({ setShowEditModal, editData }:EditProps):JSX.Eleme
           name="status"
           value="true"
           checked={formData.status === true}
-          onChange={() =>
-            handleChange({ target: { name: "status", value: true } })
-          }
+          onChange={handleChange} // Updated this line
         />
         <label className="p-1">Active</label>
         <br />
@@ -77,9 +77,7 @@ export default function Edit({ setShowEditModal, editData }:EditProps):JSX.Eleme
           name="status"
           value="false"
           checked={formData.status === false}
-          onChange={() =>
-            handleChange({ target: { name: "status", value: false } })
-          }
+          onChange={handleChange} // Updated this line
         />
         <label className="p-1">Not Active</label>
 

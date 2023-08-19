@@ -37,10 +37,10 @@ interface AddContactAction {
   
 
 export interface Contact {
-    firstName: string;
-    lastName: string;
-    status: boolean;
-    id:number;
+  firstName: string;
+  lastName: string;
+  status: boolean;
+  id: number;
   }
   
 

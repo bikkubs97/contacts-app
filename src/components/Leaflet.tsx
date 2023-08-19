@@ -28,11 +28,10 @@ export default function Leaflet(): JSX.Element {
     <MapContainer
       center={[20, 0]}
       zoom={2}
-      style={{ height: "50vh", zIndex: "0" }}
+      style={{ height: "50vh", zIndex: 0 }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {data?.map((country) => (
         <Marker
