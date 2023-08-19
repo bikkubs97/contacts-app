@@ -22,7 +22,7 @@ export default function LineChart(): JSX.Element {
     fetchData
   );
 // Render a loading message while data is being fetched
-  if (isLoading) return <p>Loading...</p>;
+if (isLoading) return (<div className="flex"><img src="loading.gif"/><p>Loading...</p></div>)
 
   const chartData = [];
   for (const date in data?.cases) {

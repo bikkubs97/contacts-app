@@ -31,7 +31,7 @@ export default function Leaflet(): JSX.Element {
   // Use react-query to fetch data and manage loading states
   const { data, isLoading } = useQuery<Country[]>("countryData", fetchData);
   // Render a loading message while data is being fetched
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return (<div className="flex"><img src="loading.gif"/><p>Loading...</p></div>)
 
   return (
     <MapContainer
