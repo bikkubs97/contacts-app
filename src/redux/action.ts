@@ -1,4 +1,5 @@
 // actions/contactActions.ts
+import { Contact } from "./reducer";
 interface AddContactAction {
     type: 'ADD_CONTACT';
     payload: Contact;
@@ -36,12 +37,6 @@ interface AddContactAction {
   }
   
 
-export interface Contact {
-  firstName: string;
-  lastName: string;
-  status: boolean;
-  id: number;
-  }
-  
+
 
   
