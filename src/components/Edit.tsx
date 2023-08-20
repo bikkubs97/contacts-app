@@ -1,16 +1,12 @@
 import React, { useState, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import { updateContact } from "../redux/action";
+import { Contact } from "../redux/reducer";
 
 // Define the props 
 interface EditProps {
   setShowEditModal: React.Dispatch<React.SetStateAction<boolean>>;
-  editData: {
-    firstName: string;
-    lastName: string;
-    status: boolean;
-    id: number;
-  };
+  editData: Contact;
 }
 
 export default function Edit({
